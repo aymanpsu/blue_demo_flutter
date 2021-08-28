@@ -1,0 +1,67 @@
+import 'package:flutter/material.dart';
+
+class BodyTemperatureCard extends StatefulWidget {
+  const BodyTemperatureCard({Key key}) : super(key: key);
+
+  @override
+  _BodyTemperatureCardState createState() => _BodyTemperatureCardState();
+}
+
+class _BodyTemperatureCardState extends State<BodyTemperatureCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      elevation: 7,
+      margin: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 15,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(7.0),
+        child: ListTile(
+          title: Padding(
+            padding: const EdgeInsets.only(bottom: 5),
+            child: Row(
+              children: [
+                Image.asset(
+                  "assets/icons/body_temperature.png",
+                  color: Colors.grey[900],
+                  width: 27,
+                ),
+                Text(
+                  " Body temperature",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: Colors.grey[700],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          subtitle: RichText(
+            text: TextSpan(
+              text: ' 0',
+              style: TextStyle(
+                color: Colors.grey[700],
+                fontWeight: FontWeight.w700,
+                fontSize: 30,
+              ),
+              children: <TextSpan>[
+                TextSpan(
+                  text: ' °C',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[700],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

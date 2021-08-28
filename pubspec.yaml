@@ -1,0 +1,52 @@
+name: blu_demo
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0+1
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  
+  cupertino_icons: ^1.0.0
+  flutter_blue: ^0.7.3
+  permission_handler: ^5.1.0+2
+  lint: ^1.0.0
+  toast: ^0.1.5
+  flutter_dotenv: ^3.0.0
+  scoped_model: ^1.1.0
+  provider: ^4.3.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - .env
+    - assets/blu_logo.png
+    - assets/icons/heart_icon.png
+    - assets/icons/blood_pressure_icon.png
+    - assets/icons/blood_oxygen_icon.png
+    - assets/icons/body_temperature.png
+    - assets/icons/home-indicator.png
+
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
