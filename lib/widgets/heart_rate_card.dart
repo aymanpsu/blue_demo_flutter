@@ -1,16 +1,10 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 
-class HeartRateCard extends StatefulWidget {
-  const HeartRateCard({Key key}) : super(key: key);
-
-  @override
-  _HeartRateCardState createState() => _HeartRateCardState();
-}
-
-class _HeartRateCardState extends State<HeartRateCard> {
+class HeartRateCard extends StatelessWidget {
+  HeartRateCard({Key key, this.heartRateCharacteristic}) : super(key: key);
+  BluetoothCharacteristic heartRateCharacteristic;
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +38,11 @@ class _HeartRateCardState extends State<HeartRateCard> {
               ],
             ),
           ),
-          subtitle: Consumer<int>(
-            builder: (_,int heartRate, child) {
-              log("heart Rate: $heartRate");
+          subtitle: StreamBuilder<List<int>>(
+            stream: heartRateCharacteristic.value.asBroadcastStream(),
+            builder: (nx, res) {
+              final int heartRate = res.data[1];
+              log("res: ${res.data}");
               return RichText(
                 text: TextSpan(
                   text: ' $heartRate',

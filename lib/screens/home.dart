@@ -42,7 +42,11 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Blu demo"),
+        leading: IconButton(
+          onPressed: () => {},
+          icon: const Icon(Icons.menu),
+        ),
+        title: const Text("Home"),
       ),
       body: Center(
         child: Column(

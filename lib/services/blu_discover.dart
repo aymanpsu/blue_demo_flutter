@@ -3,15 +3,21 @@ import 'dart:developer';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class BluDiscover {
+/*
+-- Blu discover Service ---
 
-  Future<List<BluetoothService>> discoverServicesAndCharacteristics(
+*/
+
+class BluDiscover {
+  Future<BluetoothCharacteristic> discoverServices(
       BluetoothDevice bluetoothDevice, String seviceType) async {
     /// init the main vlues
     List<BluetoothService> services;
     BluetoothService service;
+    BluetoothService heartRateService;
     List<BluetoothCharacteristic> characteristics;
     BluetoothCharacteristic characteristic;
+    BluetoothCharacteristic heartRateCharacteristic;
 
     /// Get all services from the device
     try {
@@ -20,65 +26,43 @@ class BluDiscover {
             onTimeout: () => <BluetoothService>[],
           );
       log("services from funcation: $services");
-      // if (services.isEmpty) {
-      //   log("Service list empty, flutter_blue race condition?");
-      //   // services =
-      //   //     await bluetoothDevice.services.catchError();
-
-      //   if (services.isEmpty) {
-      //     log("no services advertised!");
-      //     // _cleanupAndCancel();
-      //     return null;
-      //   }
-      // }
-    } catch (e) {
-      log("Error: $e");
-    }
-
-    switch (seviceType) {
-      case "Heart Rate":
-        {
-          BluetoothService heartRateService;
-          BluetoothCharacteristic heartRateCharacteristic;
-          for (service in services) {
-            if (service.uuid.toString() ==
-                env['TEST_HEART_RATE_SERVICE_UUID']) {
-              heartRateService = service;
-              log("Found heart rate service ${heartRateService.uuid}");
-              characteristics = heartRateService.characteristics;
-              for (characteristic in characteristics) {
-                if (characteristic.uuid.toString() ==
-                    env['TEST_HEART_RATE_CHARACTERISTIC_UUID']) {
-                  heartRateCharacteristic = characteristic;
+      if (services.isEmpty) {
+        throw Exception('No services avalible');
+      } else {
+        // looking for the heart rate service
+        for (service in services) {
+          if (service.uuid.toString() == env['TEST_HEART_RATE_SERVICE_UUID']) {
+            // found the service
+            heartRateService = service;
+            log("Found heart rate service ${heartRateService.uuid}");
+            characteristics = heartRateService.characteristics;
+            // looking for the heart rate characteristic
+            for (characteristic in characteristics) {
+              if (characteristic.uuid.toString() ==
+                  env['TEST_HEART_RATE_CHARACTERISTIC_UUID']) {
+                // found the characteristic
+                heartRateCharacteristic = characteristic;
+                log("Found heart rate characteristic ${characteristic.uuid}");
+                log("start the stream here: $characteristic");
+                try {
+                  if (characteristic == null) {
+                    throw Exception('characteristic is coming null');
+                  } else {
+                    // Start stream between APP and BLE Device
+                    await characteristic.setNotifyValue(true);
+                  }
+                } catch (e) {
+                  log("Error: $e");
                 }
+                return heartRateCharacteristic;
               }
             }
           }
         }
-        break;
-      case "Blood Pressure":
-        {
-          log("2");
-        }
-        break;
-      default:
-        {
-          log("no service try agian");
-        }
+      }
+    } catch (e) {
+      log("Error: $e");
     }
-    return services;
-  }
-
-  Stream<String> getheatRate(
-      BluetoothCharacteristic bluetoothCharacteristic) async* {
-    log("Found heart rate characteristic ${bluetoothCharacteristic.uuid}");
-    await bluetoothCharacteristic.setNotifyValue(true);
-    // log("Start listening heart rate from ${bluetoothDevice.name} on notification");
-    // bluetoothCharacteristic.value.listen((event) {
-    //   final value = event[1];
-    //   hearRate = value;
-    //   log("value: $value");
-    //   yield hearRate;
-    // });
+    return heartRateCharacteristic;
   }
 }

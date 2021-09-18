@@ -1,11 +1,14 @@
 import 'dart:developer';
 
-import 'package:blu_demo/screens/data_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:provider/provider.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../models/blu_model.dart';
+import '../providers/load_in_button.dart';
+import '../screens/data_view.dart';
+import 'loading_view.dart';
 
 class DeviceItem extends StatelessWidget {
   const DeviceItem({
@@ -36,27 +39,40 @@ class DeviceItem extends StatelessWidget {
         ),
         subtitle: Text(deviceId.toString()),
         leading: const Icon(Icons.bluetooth),
-        // Connect to the device
-        trailing: RaisedButton(
-          onPressed: () {
-            log("device connected to: $deviceInfo");
-            // To stop scaning
-            bluInstance.stopScan();
-            // Connect to the device
-            deviceInfo.connect(
-              timeout: const Duration(seconds: 4),
-            );
-            // Route to data screen
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) {
-                  return DataViewPage(device: deviceInfo);
-                },
-              ),
+        trailing: Consumer<LoadInButton>(
+          builder: (context, loadInButton, child) {
+            return RaisedButton(
+              onPressed: () async {
+                loadInButton.turnOnLoading();
+                log("device connected to: $deviceInfo");
+                await Future.wait([
+                  // To stop scaning
+                  bluInstance.stopScan(),
+                  // Connect to the device
+                  deviceInfo.connect(
+                    timeout: const Duration(seconds: 4),
+                  ),
+                ]);
+                loadInButton.turnOffLoading();
+                // Route to data screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) {
+                      return DataViewPage(device: deviceInfo);
+                    },
+                  ),
+                );
+              },
+              child: (loadInButton.load)
+                  ? const SizedBox(
+                      width: 25,
+                      height: 25,
+                      child: LoadingView(),
+                    )
+                  : const Text("Connect"),
             );
           },
-          child: const Text("Connect"),
         ),
       ),
     );
