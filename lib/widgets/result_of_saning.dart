@@ -13,7 +13,7 @@ import '../widgets/device_item.dart';
 import '../widgets/error_view.dart';
 
 class ResultOfScaning extends StatelessWidget {
-  const ResultOfScaning({Key key}) : super(key: key);
+  const ResultOfScaning({Key? key}) : super(key: key);
 
   /*
   -- Resulte of scaning --
@@ -40,7 +40,7 @@ class ResultOfScaning extends StatelessWidget {
             stream: bluInstance.scanResults,
             initialData: const [],
             builder: (_, sh) {
-              log("The number of devices found: ${sh.data.length}");
+              log("The number of devices found: ${sh.data!.length}");
               // View list of devices
               if (sh.hasError) {
                 log("empty list of devices");
@@ -48,9 +48,9 @@ class ResultOfScaning extends StatelessWidget {
                 return ErrorView(errorMessage: sh.error.toString());
               } else if (sh.hasData) {
                 return ListView.builder(
-                  itemCount: sh.data.length,
+                  itemCount: sh.data!.length,
                   itemBuilder: (BuildContext context, index) {
-                    final result = sh.data[index];
+                    final result = sh.data![index];
                     log(result.toString());
                     return ChangeNotifierProvider<LoadInButton>(
                       create: (context) => LoadInButton(),

@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 class ErrorView extends StatelessWidget {
-  const ErrorView({Key key, this.errorMessage}) : super(key: key);
-  final String errorMessage;
+  const ErrorView({Key? key, this.errorMessage}) : super(key: key);
+  final String? errorMessage;
 
   @override
   Widget build(BuildContext context) {

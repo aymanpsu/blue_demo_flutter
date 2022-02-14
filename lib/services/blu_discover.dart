@@ -9,7 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 */
 
 class BluDiscover {
-  Future<BluetoothCharacteristic> discoverServices(
+  Future<BluetoothCharacteristic?> discoverServices(
       BluetoothDevice bluetoothDevice, String seviceType) async {
     /// init the main vlues
     List<BluetoothService> services;
@@ -17,7 +17,7 @@ class BluDiscover {
     BluetoothService heartRateService;
     List<BluetoothCharacteristic> characteristics;
     BluetoothCharacteristic characteristic;
-    BluetoothCharacteristic heartRateCharacteristic;
+    BluetoothCharacteristic? heartRateCharacteristic;
 
     /// Get all services from the device
     try {
@@ -31,7 +31,7 @@ class BluDiscover {
       } else {
         // looking for the heart rate service
         for (service in services) {
-          if (service.uuid.toString() == env['TEST_HEART_RATE_SERVICE_UUID']) {
+          if (service.uuid.toString() == dotenv.get('TEST_HEART_RATE_SERVICE_UUID')) {
             // found the service
             heartRateService = service;
             log("Found heart rate service ${heartRateService.uuid}");
@@ -39,7 +39,7 @@ class BluDiscover {
             // looking for the heart rate characteristic
             for (characteristic in characteristics) {
               if (characteristic.uuid.toString() ==
-                  env['TEST_HEART_RATE_CHARACTERISTIC_UUID']) {
+                  dotenv.get('TEST_HEART_RATE_CHARACTERISTIC_UUID')) {
                 // found the characteristic
                 heartRateCharacteristic = characteristic;
                 log("Found heart rate characteristic ${characteristic.uuid}");

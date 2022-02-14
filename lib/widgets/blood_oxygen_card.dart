@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BloodOxygenCard extends StatefulWidget {
-  const BloodOxygenCard({Key key}) : super(key: key);
+  const BloodOxygenCard({Key? key}) : super(key: key);
 
   @override
   _BloodOxygenCardState createState() => _BloodOxygenCardState();

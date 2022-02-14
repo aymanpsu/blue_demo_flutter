@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BloodPressureCard extends StatefulWidget {
-  const BloodPressureCard({Key key}) : super(key: key);
+  const BloodPressureCard({Key? key}) : super(key: key);
 
   @override
   _BloodPressureCardState createState() => _BloodPressureCardState();

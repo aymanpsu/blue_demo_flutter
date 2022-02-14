@@ -3,8 +3,9 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+// import 'package:toast/toast.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:toast/toast.dart';
 
 import '../models/blu_model.dart';
 import '../services/location_permission.dart';
@@ -22,7 +23,7 @@ App is requeting location permssion from the user
 */
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -42,10 +43,6 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => {},
-          icon: const Icon(Icons.menu),
-        ),
         title: const Text("Home"),
       ),
       body: Center(
@@ -108,12 +105,12 @@ class _HomePageState extends State<HomePage> {
                     );
                   } else if (!locationPerStat) {
                     // In case user denied the location permission
-                    Toast.show(
-                      "Permission denied",
-                      context,
-                      duration: Toast.LENGTH_SHORT,
-                      gravity: Toast.BOTTOM,
+                    Fluttertoast.showToast(
+                      msg: "Permission denied",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
                       backgroundColor: Colors.grey.shade600,
+                      textColor: Colors.white,
                     );
                   } else {
                     // Alert user to turn on bluetooth and location.

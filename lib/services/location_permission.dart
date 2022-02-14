@@ -34,8 +34,7 @@ class LocationPermssion {
     // Check if location permission not allowed with these conditions
     if (loactionPerStatus == PermissionStatus.permanentlyDenied ||
         loactionPerStatus == PermissionStatus.denied ||
-        loactionPerStatus == PermissionStatus.restricted ||
-        loactionPerStatus == PermissionStatus.undetermined) {
+        loactionPerStatus == PermissionStatus.restricted ) {
       // If it not allowed ask the user to give acess
       final bool afterAskForPerm = await askForLocationPermission();
       // Check if the user not allow it again

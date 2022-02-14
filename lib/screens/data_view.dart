@@ -14,26 +14,26 @@ import '../widgets/error_view.dart';
 import '../widgets/heart_rate_card.dart';
 
 class DataViewPage extends StatelessWidget {
-  const DataViewPage({Key key, this.device}) : super(key: key);
+  const DataViewPage({Key? key, this.device}) : super(key: key);
 
-  final BluetoothDevice device;
+  final BluetoothDevice? device;
 
   @override
   Widget build(BuildContext context) {
     final BluDiscover bluDiscoverSerive = BluDiscover();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Live Data from ${device.name}"),
+        title: Text("Live Data from ${device!.name}"),
       ),
       body: FutureBuilder(
         future: bluDiscoverSerive.discoverServices(
-          device,
+          device!,
           "Heart Rate",
         ),
         builder: (c, snapshotOfServcies) {
           log("snapshotOfServcies: {$snapshotOfServcies}");
           if (snapshotOfServcies.hasData) {
-            final BluetoothCharacteristic heartRateCharacteristic = snapshotOfServcies.data as BluetoothCharacteristic;
+            final BluetoothCharacteristic? heartRateCharacteristic = snapshotOfServcies.data as BluetoothCharacteristic?;
             return ListView(
               physics: const NeverScrollableScrollPhysics(),
               children: <Widget>[
@@ -60,8 +60,8 @@ class DataViewPage extends StatelessWidget {
         backgroundColor: Colors.indigo[900],
         onPressed: () async{
           // Disconnect from the device
-          log("Disconnected from the ${device.name}");
-          await device.disconnect();
+          log("Disconnected from the ${device!.name}");
+          await device!.disconnect();
           // Route back to the scan page
           Navigator.of(context).pop();
         },

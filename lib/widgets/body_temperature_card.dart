@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BodyTemperatureCard extends StatefulWidget {
-  const BodyTemperatureCard({Key key}) : super(key: key);
+  const BodyTemperatureCard({Key? key}) : super(key: key);
 
   @override
   _BodyTemperatureCardState createState() => _BodyTemperatureCardState();

@@ -17,9 +17,9 @@ class DeviceItem extends StatelessWidget {
     this.deviceInfo,
   });
 
-  final String deviceName;
-  final String deviceId;
-  final BluetoothDevice deviceInfo;
+  final String? deviceName;
+  final String? deviceId;
+  final BluetoothDevice? deviceInfo;
 
   /*
     -- List of devices --
@@ -35,7 +35,7 @@ class DeviceItem extends StatelessWidget {
     return Card(
       child: ListTile(
         title: Text(
-          (deviceName.isEmpty) ? "Unknown devcie" : deviceName,
+          (deviceName!.isEmpty) ? "Unknown devcie" : deviceName!,
         ),
         subtitle: Text(deviceId.toString()),
         leading: const Icon(Icons.bluetooth),
@@ -49,7 +49,7 @@ class DeviceItem extends StatelessWidget {
                   // To stop scaning
                   bluInstance.stopScan(),
                   // Connect to the device
-                  deviceInfo.connect(
+                  deviceInfo!.connect(
                     timeout: const Duration(seconds: 4),
                   ),
                 ]);

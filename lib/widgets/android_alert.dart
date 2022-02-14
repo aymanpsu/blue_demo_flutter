@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class AndroidAlert extends StatelessWidget {
   const AndroidAlert({this.title, this.content});
 
-  final String title;
-  final String content;
+  final String? title;
+  final String? content;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
-        title,
+        title!,
         style: const TextStyle(fontSize: 18),
       ),
       content: Padding(
@@ -17,7 +17,7 @@ class AndroidAlert extends StatelessWidget {
           top: 10,
         ),
         child: Text(
-          content,
+          content!,
           style: const TextStyle(fontSize: 14),
         ),
       ),

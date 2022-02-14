@@ -3,21 +3,22 @@ description: A new Flutter project.
 publish_to: 'none'
 version: 1.0.0+1
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
   
-  cupertino_icons: ^1.0.0
-  flutter_blue: ^0.7.3
-  permission_handler: ^5.1.0+2
-  lint: ^1.0.0
-  toast: ^0.1.5
-  flutter_dotenv: ^3.0.0
-  scoped_model: ^1.1.0
-  provider: ^4.3.3
+  cupertino_icons: ^1.0.4
+  flutter_blue: ^0.8.0
+  permission_handler: ^8.3.0
+  lint: ^1.8.2
+  # toast: ^0.1.5
+  fluttertoast: ^8.0.8
+  flutter_dotenv: ^5.0.2
+  scoped_model: ^2.0.0-nullsafety.0
+  provider: ^6.0.2
 
 dev_dependencies:
   flutter_test:

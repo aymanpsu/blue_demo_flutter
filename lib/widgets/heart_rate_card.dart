@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
 class HeartRateCard extends StatelessWidget {
-  HeartRateCard({Key key, this.heartRateCharacteristic}) : super(key: key);
-  BluetoothCharacteristic heartRateCharacteristic;
+  HeartRateCard({Key? key, this.heartRateCharacteristic}) : super(key: key);
+  BluetoothCharacteristic? heartRateCharacteristic;
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +39,9 @@ class HeartRateCard extends StatelessWidget {
             ),
           ),
           subtitle: StreamBuilder<List<int>>(
-            stream: heartRateCharacteristic.value.asBroadcastStream(),
+            stream: heartRateCharacteristic!.value.asBroadcastStream(),
             builder: (nx, res) {
-              final int heartRate = res.data[1];
+              final int heartRate = res.data![1];
               log("res: ${res.data}");
               return RichText(
                 text: TextSpan(
